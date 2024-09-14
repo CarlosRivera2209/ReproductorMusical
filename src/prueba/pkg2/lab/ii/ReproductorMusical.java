@@ -379,7 +379,6 @@ public class ReproductorMusical extends JFrame {
         listaCanciones = new ListaEnlazada();
         audioPlayer = new AudioPlayer();
 
-        // Inicialización de componentes
         playButton = new JButton("Play");
         stopButton = new JButton("Stop");
         pauseButton = new JButton("Pause");
@@ -534,7 +533,7 @@ public class ReproductorMusical extends JFrame {
         songPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Double-click to select and play
+                if (e.getClickCount() == 2) { 
                     currentSongFile = new File(cancion.getRutaArchivo());
                     actualizarImagenCancion(cancion.getImagen());
                     songNameLabel.setText(cancion.getNombre());
@@ -587,7 +586,7 @@ public class ReproductorMusical extends JFrame {
                 AudioFormat format = audioInput.getFormat();
                 long frames = audioInput.getFrameLength();
                 double durationInSeconds = (frames + 0.0) / format.getFrameRate();
-                return (long) (durationInSeconds * 1000); // Duración en milisegundos
+                return (long) (durationInSeconds * 1000); 
             } catch (UnsupportedAudioFileException | IOException e) {
                 showErrorDialog("Error al obtener la duración del archivo WAV.", "Error de duración");
                 e.printStackTrace();
