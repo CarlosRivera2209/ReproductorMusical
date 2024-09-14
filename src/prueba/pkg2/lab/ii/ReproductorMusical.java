@@ -131,7 +131,7 @@ class SongPanel extends JPanel {
     private JLabel artistLabel;
     private JLabel imageLabel;
     private Player mp3Player;
-    private long currentFrame;  // Stores the current frame position for MP3
+    private long currentFrame;  
     private FileInputStream fis;
     private BufferedInputStream bis;
     private boolean isPaused = false;
@@ -139,7 +139,6 @@ class SongPanel extends JPanel {
     public SongPanel(Cancion cancion) {
         setLayout(new BorderLayout());
 
-        // Formatear y establecer las etiquetas con la fuente y estilo deseado
         nameLabel = new JLabel("Canción: " + cancion.getNombre());
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
 
@@ -148,14 +147,12 @@ class SongPanel extends JPanel {
 
         imageLabel = new JLabel(cancion.getImagen());
 
-        // Crear un panel para la información de la canción
         JPanel infoPanel = new JPanel(new BorderLayout());
-        infoPanel.add(nameLabel, BorderLayout.NORTH);  // Nombre de la canción arriba
-        infoPanel.add(artistLabel, BorderLayout.CENTER);  // Artista debajo del nombre de la canción
+        infoPanel.add(nameLabel, BorderLayout.NORTH); 
+        infoPanel.add(artistLabel, BorderLayout.CENTER); 
 
-        // Agregar la imagen y la información al panel principal
         add(infoPanel, BorderLayout.NORTH);
-        add(imageLabel, BorderLayout.CENTER); // Imagen en el centro
+        add(imageLabel, BorderLayout.CENTER); 
     }
 }
 
@@ -205,7 +202,7 @@ class AudioPlayer {
             mp3Thread = new Thread(() -> {
                 try {
                     while (!stopRequested && !mp3Player.isComplete()) {
-                        mp3Player.play(1); // Play 1 frame at a time to check for stop request
+                        mp3Player.play(1); 
                     }
                 } catch (JavaLayerException e) {
                     showErrorDialog("Error during MP3 playback: " + e.getMessage(), "Playback Error");
@@ -312,14 +309,12 @@ class AudioPlayer {
             long totalMilliseconds = 0;
 
             while ((header = bitstream.readFrame()) != null) {
-                // ms_per_frame gives the duration of the current frame in milliseconds
                 totalMilliseconds += header.ms_per_frame();
 
-                // Skip to the next frame
                 bitstream.closeFrame();
             }
 
-            return totalMilliseconds / 1000; // Convert to seconds
+            return totalMilliseconds / 1000;
         } catch (IOException | BitstreamException e) {
             e.printStackTrace();
             return -1;
@@ -327,9 +322,8 @@ class AudioPlayer {
     }
     
     public long getSongLength() {
-        // Verifica si el clip es nulo antes de acceder a su longitud
         if (clip == null) {
-            return 0; // Devuelve 0 o lanza una excepción según necesites manejarlo
+            return 0; 
         }
         return clip.getMicrosecondLength();
     }
@@ -373,10 +367,10 @@ public class ReproductorMusical extends JFrame {
     private JButton playButton, stopButton, pauseButton, addButton, selectButton;
     private JPanel imagePanel;
     private File currentSongFile;
-    private JSlider progressBar;  // Slider para mostrar el progreso de la canción
-    private Timer timer;  // Timer para actualizar la posición del slider
+    private JSlider progressBar;  
+    private Timer timer;  
     private Player mp3Player;
-    private long currentFrame;  // Stores the current frame position for MP3
+    private long currentFrame; 
     private FileInputStream fis;
     private BufferedInputStream bis;
     private boolean isPaused = false;
@@ -588,7 +582,6 @@ public class ReproductorMusical extends JFrame {
         String extension = getFileExtension(audioFile);
 
         if (extension.equalsIgnoreCase("wav")) {
-            // Duración para archivos WAV
             try {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(audioFile);
                 AudioFormat format = audioInput.getFormat();
